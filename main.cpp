@@ -52,8 +52,8 @@ int main() {
         float z = sin(y);
         float res=y;
         while((static_cast<int>(res*m)) != (static_cast<int>(z*m))){
-            kol += 1;
             res = res+(pow(-1,kol))*(pow(y, 2*kol+1))/(factorial(2*kol+1));
+            kol += 1;
         }
         std::cout << res << " - accuracy is 10^-" << kol1 << "; Count of iteration = " << kol << std::endl;
         kol1+=1;
