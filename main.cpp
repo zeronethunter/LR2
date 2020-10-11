@@ -1,22 +1,20 @@
 #include <iostream>
 #include <cmath>
-int factorial(int n) {
-    int z = 1;
-    while(n != 0){
-       z = z*n;
-       n = n-1;
+#include <iomanip>
+double factorial(long int n) {
+    if (n == 0){
+        return 1;
     }
-    return z;
+    return n * factorial(n-1);
 }
 int main() {
 
     for(unsigned short int i = 0; i<=127; i++){
-        std::cout << (char)i << std::endl;
-        }
+        std::cout << static_cast<char>(i) << std::endl;
+    }
     std::cout << "Input symbol: ";
     char sym;
     std::cin >> sym;
-    static_cast<int>(sym);
     if ((sym >= 48) && (sym<=57)) {
         std::cout << " It's Digit" << std::endl;
     } else if (((sym>=65)&&(sym<=90)) || ((sym>=97)&&(sym<=122))){
@@ -43,20 +41,22 @@ int main() {
             std::cout << x << std::endl;
             break;
     }
-    std::cout << "Input y =";
+    std::cout << "Input y = ";
     float y;
     std::cin >> y;
-    int kol1 = 2;
-    for (unsigned int m=100; m<1000001; m=m*10){
-        int kol = 0;
-        float z = sin(y);
-        float res=y;
-        while((static_cast<int>(res*m)) != (static_cast<int>(z*m))){
-            res = res+(pow(-1,kol))*(pow(y, 2*kol+1))/(factorial(2*kol+1));
-            kol += 1;
+    float s = sin(y);
+    std::cout << "sin(" << y << ") = ";
+    std::cout << std::setprecision(7) << s << std::endl;
+    long int kol;
+    double res;
+    for(auto i = 0.01; i>=0.000001; i*=0.1){
+        kol=-1;
+        res = 0;
+        while (abs(s - res) > i){
+            ++kol;
+            res = res + pow(-1, kol)*pow(y, 2*kol+1)/factorial(2*kol+1);
         }
-        std::cout << res << " - accuracy is 10^-" << kol1 << "; Count of iteration = " << kol << std::endl;
-        kol1+=1;
+        std::cout << "The accuracy: " << i << " Value of iterations: " << kol+1 << " Result: " << std::setprecision(7) << res << std::endl;
     }
     return 0;
 }
