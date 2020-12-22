@@ -3,6 +3,8 @@
 #include <iomanip>
 int main() {
     long long fast = 0;
+    long long pow1 = 1;
+    double pow2 = 0;
     for (unsigned short int i = 0; i <= 127; i++) {
         std::cout << static_cast<char>(i) << std::endl;
     }
@@ -38,7 +40,7 @@ int main() {
         break;
     }
     std::cout << "Input y = ";
-    float y;
+    double y;
     std::cin >> y;
     float s = sin(y);
     std::cout << "sin(" << y << ") = ";
@@ -49,10 +51,14 @@ int main() {
         kol = 0;
         res = 0;
         fast = 1;
+        pow1 = 1;
+        pow2 = y;
         while (abs(s - res) > i) {
-            res = res + pow(-1, kol) * pow(y, 2 * kol + 1) / fast;
+            res = res + pow1 * pow2 / fast;
             ++kol;
             fast *= 2 * kol * (2 * kol + 1);
+            pow1 *= -1;
+            pow2 *= y * y;
         }
         std::cout << "The accuracy: " << i << " Value of iterations: " << kol << " Result: " << std::setprecision(7) << res << std::endl;
     }
